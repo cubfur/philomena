@@ -7,6 +7,20 @@ import { filterNode } from './imagesclientside';
 import { fetchHtml } from './utils/requests';
 import { timeAgo } from './timeago';
 
+import bbobHTML from '@bbob/html';
+import presetHTML5 from '@bbob/preset-html5';
+
+function parseBBcode() {
+  let comments = document.querySelectorAll('.communication__body__text .paragraph');
+  if (comments.length > 0) {
+    comments.forEach(el => {
+      el.innerHTML = bbobHTML(el.innerHTML, presetHTML5());
+    });
+  }
+}
+
+parseBBcode();
+
 function handleError(response) {
   const errorMessage = '<div>Comment failed to load!</div>';
 
@@ -114,6 +128,8 @@ function displayComments(container, commentsHtml) {
 
   // Filter images in the comments
   filterNode(container);
+
+  parseBBcode();
 }
 
 function loadComments(event) {

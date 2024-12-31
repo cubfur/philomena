@@ -7,7 +7,7 @@ html lang="en"
 
     title
       => @status
-      | - Philomena
+      | - CubFur.Gay
     link rel="stylesheet" href=~p"/css/application.css"
     link rel="stylesheet" href=stylesheet_path(@conn, nil)
     link rel="stylesheet" href=light_stylesheet_path(@conn) media="(prefers-color-scheme: light)"
@@ -18,7 +18,7 @@ html lang="en"
     .minimal__message
       h1.minimal__message__header
         i.fa.fw.favicon-home>
-        ' Philomena
+        ' CubFur.Gay
 
       h3 = @short_msg
       p = @long_msg

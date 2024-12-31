@@ -7,6 +7,20 @@ import { $, $$, hideEl, showEl } from './utils/dom';
 import { assertNotNull, assertType } from './utils/assert';
 import '../types/ujs';
 
+import bbobHTML from '@bbob/html';
+import presetHTML5 from '@bbob/preset-html5';
+
+function parseBBcode() {
+  let description = document.querySelectorAll('.image-description .block .block__content .paragraph');
+  if (description.length > 0) {
+    description.forEach(el => {
+      el.innerHTML = bbobHTML(el.innerHTML, presetHTML5());
+    });
+  }
+}
+
+parseBBcode();
+
 let touchMoved = false;
 
 function formResult({ target, detail }: FetchcompleteEvent) {
@@ -17,6 +31,7 @@ function formResult({ target, detail }: FetchcompleteEvent) {
 
   function showResult(formEl: HTMLFormElement, resultEl: HTMLElement, response: string) {
     resultEl.innerHTML = response;
+    parseBBcode();
     hideEl(formEl);
     showEl(resultEl);
 

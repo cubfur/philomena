@@ -13,17 +13,31 @@ defmodule PhilomenaProxy.Scrapers do
         }
 
   @typedoc "Result of a successful scrape."
-  @type scrape_result :: %{
-          source_url: url(),
-          description: String.t() | nil,
-          author_name: String.t() | nil,
-          images: [image_result()]
-        }
+  @type scrape_result ::
+          %{
+            optional(:tags) => [String.t()] | [],
+            optional(:sources) => [String.t()] | [],
+            optional(:authors) => [String.t()] | [],
+            optional(:directors) => [String.t()] | [],
+            optional(:author_name) => String.t() | nil,
+            source_url: url(),
+            description: String.t() | nil,
+            images: [image_result()]
+          }
+          | %{
+              errors: [String.t()]
+            }
 
   @scrapers [
+    PhilomenaProxy.Scrapers.Baraag,
     PhilomenaProxy.Scrapers.Bluesky,
+    PhilomenaProxy.Scrapers.Booru,
     PhilomenaProxy.Scrapers.Deviantart,
+    PhilomenaProxy.Scrapers.E6,
+    PhilomenaProxy.Scrapers.Furaffinity,
+    PhilomenaProxy.Scrapers.Inkbunny,
     PhilomenaProxy.Scrapers.Pillowfort,
+    PhilomenaProxy.Scrapers.Pixiv,
     PhilomenaProxy.Scrapers.Twitter,
     PhilomenaProxy.Scrapers.Tumblr,
     PhilomenaProxy.Scrapers.Raw

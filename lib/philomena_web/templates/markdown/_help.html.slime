@@ -15,3 +15,6 @@
     a href="/pages/markdown"
       i.fa.fa-question-circle>
       strong Detailed syntax guide
+    
+  p
+    strong BBcode also supported!

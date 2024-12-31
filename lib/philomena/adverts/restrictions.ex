@@ -7,8 +7,8 @@ defmodule Philomena.Adverts.Restrictions do
   @type restriction_list :: [restriction()]
   @type tag_list :: [String.t()]
 
-  @nsfw_tags MapSet.new(["questionable", "explicit"])
-  @sfw_tags MapSet.new(["safe", "suggestive"])
+  @nsfw_tags MapSet.new(["nude only", "explicit"])
+  @sfw_tags MapSet.new(["clean", "suggestive"])
 
   @doc """
   Calculates the restrictions available to a given tag list.
@@ -20,7 +20,7 @@ defmodule Philomena.Adverts.Restrictions do
       iex> tags([])
       ["none"]
 
-      iex> tags(["safe"])
+      iex> tags(["clean"])
       ["sfw", "none"]
 
       iex> tags(["explicit"])

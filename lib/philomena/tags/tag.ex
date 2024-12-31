@@ -17,6 +17,7 @@ defmodule Philomena.Tags.Tag do
     "blog",
     "colorist",
     "comic",
+    "director",
     "editor",
     "fanfic",
     "oc",
@@ -26,7 +27,8 @@ defmodule Philomena.Tags.Tag do
     "series",
     "species",
     "spoiler",
-    "video"
+    "video",
+    "writer"
   ]
 
   @namespace_categories %{
@@ -34,21 +36,25 @@ defmodule Philomena.Tags.Tag do
     "art pack" => "content-fanmade",
     "colorist" => "origin",
     "comic" => "content-fanmade",
+    "director" => "origin",
     "editor" => "origin",
     "fanfic" => "content-fanmade",
     "oc" => "oc",
     "photographer" => "origin",
     "series" => "content-fanmade",
     "spoiler" => "spoiler",
-    "video" => "content-fanmade"
+    "video" => "content-fanmade",
+    "writer" => "origin"
   }
 
   @underscore_safe_namespaces [
     "artist:",
     "colorist:",
+    "director:",
     "editor:",
     "oc:",
-    "photographer:"
+    "photographer:",
+    "writer:"
   ]
 
   @derive {Phoenix.Param, key: :slug}
@@ -113,7 +119,10 @@ defmodule Philomena.Tags.Tag do
     tag
     |> cast(attrs, [:image, :image_format, :image_mime_type, :uploaded_image])
     |> validate_required([:image, :image_format, :image_mime_type])
-    |> validate_inclusion(:image_mime_type, ~W(image/gif image/jpeg image/png image/svg+xml))
+    |> validate_inclusion(
+      :image_mime_type,
+      ~W(image/gif image/jpeg image/png image/svg+xml image/webp)
+    )
   end
 
   def remove_image_changeset(tag) do
@@ -157,7 +166,6 @@ defmodule Philomena.Tags.Tag do
     |> Enum.sort_by(
       &{
         &1.category != "error",
-        &1.category != "rating",
         &1.category != "origin",
         &1.category != "character",
         &1.category != "oc",
@@ -165,7 +173,9 @@ defmodule Philomena.Tags.Tag do
         &1.category != "body-type",
         &1.category != "content-fanmade",
         &1.category != "content-official",
+        &1.category != "content-fanmade",
         &1.category != "spoiler",
+        &1.category != "rating",
         &1.name
       }
     )
@@ -174,7 +184,6 @@ defmodule Philomena.Tags.Tag do
   def categories do
     [
       "error",
-      "rating",
       "origin",
       "character",
       "oc",
@@ -182,7 +191,8 @@ defmodule Philomena.Tags.Tag do
       "body-type",
       "content-fanmade",
       "content-official",
-      "spoiler"
+      "spoiler",
+      "rating"
     ]
   end
 

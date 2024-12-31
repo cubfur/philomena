@@ -54,11 +54,15 @@ defmodule Philomena.Commissions.Commission do
 
   def categories do
     [
+      Adult: "Adult",
       Anthro: "Anthro",
+      BDSM: "BDSM",
       "Canon Characters": "Canon Characters",
       Comics: "Comics",
+      Cub: "Cub",
+      Feral: "Feral",
       "Fetish Art": "Fetish Art",
-      "Human and EqG": "Human and EqG",
+      Human: "Human",
       NSFW: "NSFW",
       "Original Characters": "Original Characters",
       "Original Species": "Original Species",
@@ -66,7 +70,7 @@ defmodule Philomena.Commissions.Commission do
       Requests: "Requests",
       Safe: "Safe",
       Shipping: "Shipping",
-      "Violence and Gore": "Violence and Gore"
+      Violence: "Violence"
     ]
   end
 

@@ -6,7 +6,15 @@ defmodule PhilomenaProxy.Scrapers.Raw do
 
   @behaviour Scraper
 
-  @mime_types ["image/gif", "image/jpeg", "image/png", "image/svg", "image/svg+xml", "video/webm"]
+  @mime_types [
+    "image/gif",
+    "image/jpeg",
+    "image/png",
+    "image/svg",
+    "image/svg+xml",
+    "video/webm",
+    "image/webp"
+  ]
 
   @spec can_handle?(URI.t(), String.t()) :: boolean()
   def can_handle?(_uri, url) do

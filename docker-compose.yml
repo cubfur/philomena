@@ -19,6 +19,11 @@ services:
       - HCAPTCHA_SITE_KEY=10000000-ffff-ffff-ffff-000000000001
       - PASSWORD_PEPPER=dn2e0EpZrvBLoxUM3gfQveBhjf0bG/6/bYhrOyq3L3hV9hdo/bimJ+irbDWsuXLP
       - TUMBLR_API_KEY=fuiKNFp9vQFvjLNvx4sUwti4Yb5yGutBN4Xh10LXZhhRKjWlV4
+      - INKBUNNY_SID=4X88ktV7jxywp65Ng40ez1qTJd
+      - E621_USER=
+      - E621_APIKEY=
+      - E6AI_USER=
+      - E6AI_APIKEY=
       - OTP_SECRET_KEY=Wn7O/8DD+qxL0X4X7bvT90wOkVGcA90bIHww4twR03Ci//zq7PnMw8ypqyyT/b/C
       - ADVERT_FILE_ROOT=adverts
       - AVATAR_FILE_ROOT=avatars
@@ -43,6 +48,7 @@ services:
       - S3_BUCKET=philomena
       - AWS_ACCESS_KEY_ID=local-identity
       - AWS_SECRET_ACCESS_KEY=local-credential
+      - LOCUS_KEY=
     working_dir: /srv/philomena
     tty: true
     volumes:

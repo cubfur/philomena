@@ -23,6 +23,11 @@ config :philomena,
   advert_url_root: System.fetch_env!("ADVERT_URL_ROOT"),
   image_file_root: System.fetch_env!("IMAGE_FILE_ROOT"),
   tumblr_api_key: System.fetch_env!("TUMBLR_API_KEY"),
+  inkbunny_sid: System.fetch_env!("INKBUNNY_SID"),
+  e621_user: System.fetch_env!("E621_USER"),
+  e621_apikey: System.fetch_env!("E621_APIKEY"),
+  e6ai_user: System.fetch_env!("E6AI_USER"),
+  e6ai_apikey: System.fetch_env!("E6AI_APIKEY"),
   otp_secret_key: System.fetch_env!("OTP_SECRET_KEY"),
   image_url_root: System.fetch_env!("IMAGE_URL_ROOT"),
   badge_url_root: System.fetch_env!("BADGE_URL_ROOT"),
@@ -35,6 +40,14 @@ config :philomena,
   camo_host: System.get_env("CAMO_HOST"),
   camo_key: System.get_env("CAMO_KEY"),
   cdn_host: System.fetch_env!("CDN_HOST")
+
+locus_key =
+  case System.fetch_env("LOCUS_KEY") do
+    {:ok, locus_key} -> locus_key
+    _ -> nil
+  end
+
+config :locus, license_key: locus_key
 
 app_dir = System.get_env("APP_DIR", File.cwd!())
 

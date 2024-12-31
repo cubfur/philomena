@@ -20,7 +20,9 @@
     "postcss-mixins": "^11.0.3",
     "postcss-simple-vars": "^7.0.1",
     "typescript": "^5.7.2",
-    "vite": "^6.0.2"
+    "vite": "^6.0.2",
+    "@bbob/html": "^4.2.0",
+    "@bbob/preset-html5": "^4.2.0"
   },
   "devDependencies": {
     "@testing-library/dom": "^10.4.0",

@@ -92,6 +92,7 @@ defmodule Philomena.Images.Image do
 
     field :uploaded_image, :string, virtual: true
     field :removed_image, :string, virtual: true
+    field :tag_input, :string, virtual: true
 
     timestamps(inserted_at: :created_at, type: :utc_datetime)
   end
@@ -159,7 +160,7 @@ defmodule Philomena.Images.Image do
     |> validate_length(:image_name, max: 255, count: :bytes)
     |> validate_inclusion(
       :image_mime_type,
-      ~W(image/gif image/jpeg image/png image/svg+xml video/webm),
+      ~W(image/gif image/jpeg image/png image/svg+xml video/webm image/webp),
       message: "(#{attrs["image_mime_type"]}) is invalid"
     )
     |> check_dimensions()

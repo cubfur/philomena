@@ -7,9 +7,9 @@ html lang="en"
     title
       = if assigns[:title] do
         => assigns[:title]
-        ' - Derpibooru
+        ' - CubFur
       - else
-        ' Derpibooru
+        ' CubFur
     link rel="preconnect" href="https://#{cdn_host()}"
     link rel="stylesheet" href=~p"/css/application.css"
     link#js-theme-stylesheet rel="stylesheet" href=stylesheet_path(@conn, @current_user)

@@ -435,14 +435,9 @@ pre code {
   padding: 0 var(--header-spacing);
 }
 
-i.favicon-home {
-  background-image: url("/favicon.svg");
-  background-size: contain;
-  background-repeat: no-repeat;
-  background-position: center;
-  min-width: 1em;
-  height: 1em;
-  display: inline-block;
+img.logo {
+  height: 35px;
+  padding: 3px 0 3px 0;
 }
 
 /* changelog */

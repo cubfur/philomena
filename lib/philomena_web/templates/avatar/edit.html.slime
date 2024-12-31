@@ -26,11 +26,13 @@
             = error_tag f, :avatar_mime_type
 
           .field.field--inline
-            = url_input f, :scraper_url, class: "input input--wide js-scraper", placeholder: "Link a deviantART page, a Tumblr post, or the image directly"
+            = url_input f, :scraper_url, class: "input input--wide js-scraper", placeholder: "Or link a supported service's post or an image directly"
             button.button.button--separate-left#js-scraper-preview(type="button" title="Fetch the image at the specified URL" data-disable-with="Fetch" disabled)
               ' Fetch
 
           .field-error-js.hidden.js-scraper
+
+          p Supports Baraag, Bluesky, Derpibooru, DeviantArt, E621, E6AI, Furaffinity, Furbooru, Inkbunny, Pillowfort, Pixiv, Tumblr, and Twitter
 
           br
 
