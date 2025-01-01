@@ -62,3 +62,4 @@ npm-debug.log
 
 # Vitest coverage
 /assets/coverage
+docker-compose.yml
