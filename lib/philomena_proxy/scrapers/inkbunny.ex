@@ -26,7 +26,7 @@ defmodule PhilomenaProxy.Scrapers.Inkbunny do
           rating
 
         Enum.find(r, fn x -> x["name"] == "Strong Violence" end) ->
-          false
+          "grimdark"
 
         Enum.find(r, fn x -> x["name"] == "Sexual Themes" end) ->
           "explicit"
@@ -41,11 +41,6 @@ defmodule PhilomenaProxy.Scrapers.Inkbunny do
     if rating do
       description = "##\s#{submission["title"]}\n#{submission["description"]}"
 
-      tags =
-        for x <- submission["keywords"], x["contributed"] == "f" do
-          x["keyword_name"]
-        end
-
       images =
         for x <- submission["files"] do
           %{
@@ -58,7 +53,7 @@ defmodule PhilomenaProxy.Scrapers.Inkbunny do
         source_url: url,
         author_name: submission["username"],
         description: description,
-        tags: [rating | tags],
+        tags: [rating],
         images: images
       }
     else

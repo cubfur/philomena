@@ -11,12 +11,12 @@ defmodule Philomena.Application do
     if locus_key && locus_key != "" do
       :locus.start_loader(:city, {:maxmind, "GeoLite2-City"}, [
         {:update_period, 86_400 * 1_000},
-        {:error_retries, {:backoff, 3600}}
+        {:error_retries, {:backoff, 86_400 * 1_000}}
       ])
 
       :locus.start_loader(:asn, {:maxmind, "GeoLite2-ASN"}, [
         {:update_period, 86_400 * 1_000},
-        {:error_retries, {:backoff, 3600}}
+        {:error_retries, {:backoff, 86_400 * 1_000}}
       ])
     end
 
