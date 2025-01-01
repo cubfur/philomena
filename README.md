@@ -2,7 +2,7 @@
 ![Philomena](/assets/static/images/phoenix.svg)
 
 ## Getting started
-On systems with `docker` and `docker compose` installed, the process should be as simple as:
+After duplicating `docker-compose-sample.yml` and renaming it to `docker-compose.yml`, on systems with `docker` and `docker compose` installed, the process should be as simple as:
 
 ```
 docker compose build
