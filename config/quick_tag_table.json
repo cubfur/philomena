@@ -350,6 +350,40 @@
       "the legend of zelda",
       "tokyo afterschool summoners",
       "undertale"
-    ]
+    ],
+ "Shorthands A": [
+    ["Sex & Age 1", [
+      ["m", "male"],
+      ["f", "female"],
+      ["mm", "male/male"],
+      ["ff", "female"],
+      ["mf", "male/female"],
+      ["bb", "boy/boy"],
+      ["cc", "cub/cub"],
+      ["at", "adult/teen"],
+      ["ac", "adult/cub"],
+      ["tc", "teen/cub"],
+      ["tt", "teen/teen"]
+    ]],
+    ["Sex & Age 2", [
+      ["gg", "girl/girl"],
+      ["mb", "man/boy"],
+      ["mg", "man/girl"],
+      ["bf", "boy focus"],
+      ["cf", "cub focus"],
+      ["gf", "girl focus"],
+      ["sb", "solo boy"],
+      ["sc", "solo cub"],
+      ["sg", "solo girl"]
+    ]],
+    ["official Properties", [
+      ["mlp", "my little pony"],
+      ["fim", "friendship is magic"],
+      ["r&c", "ratchet & clank"],
+      ["fnaf", "five nights at freddy's"],
+      ["tas", "tokyo afterschool summoners"],
+      ["bna", "bna: brand new animal"],
+    ]]
+  ]
   }
 }
