@@ -1,5 +1,5 @@
 .block__content.js-imagelist-info.flex class=tags_row_class(@conn)
-  .flex__fixed.tag-info__image.spacing-right
+  .flex__fixed.tag-info__image2.spacing-right
     = if @tag.image do
       img src=tag_image(@tag) alt="spoiler image"
     - else

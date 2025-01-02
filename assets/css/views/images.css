@@ -59,9 +59,13 @@ a.interaction--comments:hover {
   border: var(--border);
   text-align: center;
   font-size: 12px;
+}
+.tag-info__image2 {
+  border: var(--border);
+  text-align: center;
+  font-size: 12px;
   height: 250px !important;
 }
-
 /* Images rendered using the 'images/image_container' partial (image lists, comment list previews, gallery thumbs) */
 div.image-container {
   position: relative;
@@ -259,10 +263,14 @@ div.image-container video {
   display: none;
 }
 
-#js-image-upload-previews img,
+#js-image-upload-previews img {
+  max-height: 250px;
+  max-width: 600px;
+        }
+        
 #js-image-upload-previews video {
-  max-height: 200px;
-  max-width: 200px;
+  max-height: 250px;
+  max-width: 600px;
 }
 
 #js-image-upload-previews .scraper-preview--label {
