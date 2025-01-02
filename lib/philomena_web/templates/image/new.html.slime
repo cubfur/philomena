@@ -54,13 +54,31 @@
 
   .field
     label for="image[tag_input]"
-      ' Describe with
-      strong> 6+
-      ' tags, including ratings and applicable artist tags. If importing an image from another website, please verify all tags are accurate. If an OC posted this, it will mark them as the artist. Check the description to get the artist name. Do not use underscores, and separate tags with commas.
-
-      p For artists: prefix with artist: If you don't know the artist, put unknown artist.
-      p For original characters, prefix with oc:
-      p For AI creators, prefix with director:
+      .block.block--fixed.block--warning
+        ' Describe with
+        strong> 6+
+        ' tags, including ratings and applicable artist tags. If importing an image from another website, please verify all tags are accurate. If an OC posted this, it will mark them as the artist. Check the description to get the artist name. Do not use underscores, and separate tags with commas.
+        br>
+        strong> For artists: 
+        ' prefix with 
+        .tag[data-tag-category="origin"]artist:
+        'If you don't know the artist, put
+        .tag[data-tag-category="error"]artist needed
+        'If the scraper fetched the artist name automatically, make sure it's the creator and not the commissioner or another reposter.
+        br>
+        strong> For official characters:
+        'just type their name and the system will categorize appropriately (for example
+        .tag[data-tag-category="character"]thumper
+        '). If not, please visit our forum to request categorization.
+        br>
+        strong> For original characters:
+        'prefix with 
+        .tag[data-tag-category="oc"]oc:
+        ' If their name is a single word, add parenthesis after it with the username inside.
+        br>
+        strong> For AI creators:
+        'prefix with 
+        .tag[data-tag-category="origin"]director:
 
     = render PhilomenaWeb.TagView, "_tag_editor.html", f: f, name: :tag_input, type: :upload
     = error_tag f, :tag_input

@@ -4,14 +4,16 @@
     "Species",
     "Anatomy",
     "Sexual Interactions",
-    "Franchises"
+    "Franchises",
+    "Shorthand"
   ],
   "tab_modes": {
     "Main": "default",
     "Species": "default",
     "Anatomy": "default",
     "Sexual Interactions": "default",
-    "Franchises": "default"
+    "Franchises": "default",
+    "Shorthand": "shorthand"
   },
   "Main": {
     "Ratings": [
@@ -350,8 +352,9 @@
       "the legend of zelda",
       "tokyo afterschool summoners",
       "undertale"
-    ],
- "Shorthands A": [
+    ]
+  },
+ "Shorthand": [
     ["Sex & Age 1", [
       ["m", "male"],
       ["f", "female"],
@@ -377,13 +380,13 @@
       ["sg", "solo girl"]
     ]],
     ["official Properties", [
+      ["bna", "bna: brand new animal"],
+      ["fnaf", "five nights at freddy's"],
       ["mlp", "my little pony"],
       ["fim", "friendship is magic"],
+      ["mym", "make your mark"],
       ["r&c", "ratchet & clank"],
-      ["fnaf", "five nights at freddy's"],
-      ["tas", "tokyo afterschool summoners"],
-      ["bna", "bna: brand new animal"],
+      ["tas", "tokyo afterschool summoners"]
     ]]
   ]
-  }
 }
