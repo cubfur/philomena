@@ -202,7 +202,7 @@ function setupImageUpload() {
     $$('.tag-error').forEach(el => el.remove());
   }
 
-  const ratingsTags = ['safe', 'suggestive', 'questionable', 'explicit', 'semi-grimdark', 'grimdark', 'grotesque'];
+  const ratingsTags = ['safe', 'suggestive', 'nude only', 'explicit', 'semi-grimdark', 'grimdark', 'grotesque'];
 
   // populate tag error helper bars as necessary
   // return true if all checks pass
@@ -239,8 +239,8 @@ function setupImageUpload() {
       errors.push('Tag input may not contain any other rating if safe');
     }
 
-    if (tagsArr.length < 3) {
-      errors.push('Tag input must contain at least 3 tags');
+    if (tagsArr.length < 5) {
+      errors.push('Tag input must contain at least 6 tags');
     }
 
     errors.forEach(msg => createTagError(msg));
