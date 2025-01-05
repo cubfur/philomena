@@ -156,7 +156,9 @@ defmodule Philomena.Images.SearchIndex do
       galleries:
         image.gallery_interactions |> Enum.map(&%{id: &1.gallery_id, position: &1.position}),
       namespaced_tags: %{
-        name: image.tags |> Enum.flat_map(&([&1] ++ &1.aliases)) |> Enum.map(& &1.name)
+        name: image.tags |> Enum.flat_map(&([&1] ++ &1.aliases)) |> Enum.map(& &1.name),
+        name_in_namespace:
+          image.tags |> Enum.flat_map(&([&1] ++ &1.aliases)) |> Enum.map(& &1.name_in_namespace)
       },
       gallery_id: Enum.map(image.gallery_interactions, & &1.gallery_id),
       gallery_position: Map.new(image.gallery_interactions, &{&1.gallery_id, &1.position}),

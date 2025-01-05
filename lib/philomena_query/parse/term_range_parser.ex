@@ -13,6 +13,12 @@ defmodule PhilomenaQuery.Parse.TermRangeParser do
         field(input, f, p)
       end)
 
+    input =
+      case String.split(input, ":") do
+        [_pre, tag] -> tag
+        _ -> input
+      end
+
     tokens || [{parser(type), default_field}, range: :eq, value: input]
   end
 

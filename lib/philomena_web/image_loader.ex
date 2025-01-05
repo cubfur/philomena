@@ -109,6 +109,10 @@ defmodule PhilomenaWeb.ImageLoader do
     do: Enum.flat_map(shoulds, &search_tag_name(&1))
 
   defp search_tag_names(%{term: %{"namespaced_tags.name" => tag_name}}), do: [tag_name]
+
+  defp search_tag_names(%{term: %{"namespaced_tags.name_in_namespace" => tag_name}}),
+    do: [tag_name]
+
   defp search_tag_names(_other_query), do: []
 
   defp load_tags([]), do: []
@@ -116,7 +120,7 @@ defmodule PhilomenaWeb.ImageLoader do
   defp load_tags(tags) do
     Tag
     |> join(:left, [t], at in Tag, on: t.id == at.aliased_tag_id)
-    |> where([t, at], t.name in ^tags or at.name in ^tags)
+    |> where([t, at], t.name in ^tags or t.name_in_namespace in ^tags or at.name in ^tags)
     |> preload([
       :aliases,
       :aliased_tag,

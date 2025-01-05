@@ -93,7 +93,7 @@ defmodule Philomena.Images.Query do
       bool_fields: ~W(animated processed thumbnails_generated),
       ngram_fields: ~W(description),
       custom_fields: ~W(gallery_id),
-      default_field: {"namespaced_tags.name", :term},
+      default_field: {"namespaced_tags.name_in_namespace", :term},
       transforms: %{"gallery_id" => &gallery_id_transform/2},
       aliases: %{
         "faved_by" => "favourited_by_users",
