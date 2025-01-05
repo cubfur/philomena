@@ -9,15 +9,8 @@ defmodule Philomena.Application do
     locus_key = Application.get_env(:locus, :license_key)
 
     if locus_key && locus_key != "" do
-      :locus.start_loader(:city, {:maxmind, "GeoLite2-City"}, [
-        {:update_period, 86_400 * 1_000},
-        {:error_retries, {:backoff, 86_400 * 1_000}}
-      ])
-
-      :locus.start_loader(:asn, {:maxmind, "GeoLite2-ASN"}, [
-        {:update_period, 86_400 * 1_000},
-        {:error_retries, {:backoff, 86_400 * 1_000}}
-      ])
+      :locus.start_loader(:city, {:maxmind, "GeoLite2-City"})
+      :locus.start_loader(:asn, {:maxmind, "GeoLite2-ASN"})
     end
 
     # List all child processes to be supervised
