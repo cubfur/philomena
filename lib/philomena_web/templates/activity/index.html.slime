@@ -31,7 +31,7 @@
           ' Recent Comments
         = for comment <- @comments do
           = render PhilomenaWeb.ActivityView, "_comment_strip.html", comment: comment, conn: @conn
-        a.block__header--single-item.center href="/search?q=first_seen_at.gt:3 days ago&amp;sf=comment_count&amp;sd=desc"
+        a.block__header--single-item.center href="/search?q=first_seen_at.gt:365 days ago&amp;sf=comment_count&amp;sd=desc"
           ' Most Commented-on Images
 
   .column-layout__main

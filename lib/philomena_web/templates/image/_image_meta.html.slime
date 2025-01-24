@@ -44,7 +44,7 @@
       a href="#{pretty_url(@image, false, false)}" rel="nofollow" title="Download file"
         i.fa.fa-eye>
         | Download
-      a href="https://saucenao.com/search.php?url=#{url(~p"/#{pretty_url(@image, true, true)}")}" title="Reverse image lookup"
+      a href="https://saucenao.com/search.php?url=#{~p"/#{pretty_url(@image, true, true)}"}" title="Reverse image lookup"
         i.fa-solid.fa-hat-wizard>
         | SauceNao
   .image-metabar.flex.flex--wrap.block__header--user-credit.center--layout#extrameta

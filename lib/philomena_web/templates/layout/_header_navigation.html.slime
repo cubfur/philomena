@@ -36,6 +36,6 @@
       = @conn.assigns.live_channels
 
   a.header__link href="/galleries"
-    | Galleries
+    | Comics & Sets
   a.header__link href="/commissions"
     | Commissions

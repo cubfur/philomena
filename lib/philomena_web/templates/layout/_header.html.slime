@@ -73,7 +73,7 @@ header.header
               | Upvotes
             a.header__link href=~p"/galleries?#{[gallery: [creator: @current_user.name]]}"
               i.fa.fa-fw.fa-image>
-              | Galleries
+              | Comics & Sets
             a.header__link href="/search?q=my:uploads"
               i.fa.fa-fw.fa-upload>
               | Uploads

@@ -19,7 +19,7 @@ nav#burger
     ' Filters
   a href="/galleries"
     i.fa.fa-fw.fa-image<>
-    ' Galleries
+    ' Comics & Sets
   a href="/comments"
     i.fa.fa-fw.fa-comments<>
     ' Comments
