@@ -93,7 +93,7 @@ defmodule Philomena.ArtistLinks.ArtistLink do
 
   defp put_verification_code(changeset) do
     code = :crypto.strong_rand_bytes(5) |> Base.encode16()
-    change(changeset, verification_code: "CUBFUR.GAY-VAL-#{code}")
+    change(changeset, verification_code: "CUTEPAWS-VAL-#{code}")
   end
 
   defp put_next_check_at(changeset) do

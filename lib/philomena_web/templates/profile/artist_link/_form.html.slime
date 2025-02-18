@@ -15,7 +15,7 @@
 
   .field
     label for="uri"
-      ' URL of your art webpage (may be your CubFur.Gay profile page if you have no other sources)
+      ' URL of your art webpage (may be your Cutepa.ws profile page if you have no other sources)
     = url_input f, :uri, class: "input input--wide", placeholder: "https://inkbunny.net/your-name", required: true
     = error_tag f, :uri
 
@@ -32,7 +32,7 @@
   p
     strong Review details carefully as only site staff can edit later.
   p
-    strong> For quick results, put the CUBFUR.GAY-LV code on your linked webpage after submission.
+    strong> For quick results, put the CUTEPAWS-LV code on your linked webpage after submission.
     | We'll message you there otherwise.
   .actions
     = submit "Submit", class: "button"

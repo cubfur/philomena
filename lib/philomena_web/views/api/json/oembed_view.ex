@@ -11,10 +11,10 @@ defmodule PhilomenaWeb.Api.Json.OembedView do
     %{
       version: "1.0",
       type: "photo",
-      title: "##{image.id} - #{tag_list(image)} - CubFur.Gay",
+      title: "##{image.id} - #{tag_list(image)} - Cutepa.ws",
       author_url: image_first_source(image),
       author_name: artist_tags(image.tags),
-      provider_name: "CubFur.Gay",
+      provider_name: "Cutepa.ws",
       provider_url: PhilomenaWeb.Endpoint.url(),
       cache_age: 7200,
       cubfur_id: image.id,

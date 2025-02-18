@@ -3,7 +3,7 @@ p
   a.button href=~p"/profiles/#{@user}/artist_links/new"
     ' Request a link
 p
-  ' Artist/OC links associate your account on CubFur.Gay with tags about content you create and with accounts on sites elsewhere. This allows users to easily identify artists, OCs, etc. and for staff to act rapidly on takedown requests.
+  ' Artist/OC links associate your account on Cutepa.ws with tags about content you create and with accounts on sites elsewhere. This allows users to easily identify artists, OCs, etc. and for staff to act rapidly on takedown requests.
 
 table.table
   thead

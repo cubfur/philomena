@@ -2,7 +2,7 @@
 <rss version="2.0">
   <channel>
     <title><CubFur class="Gay"></CubFur> Watchlist</title>
-    <description>Your watched tags feed from CubFur.Gay</description>
+    <description>Your watched tags feed from Cutepa.ws</description>
     <link><%= url(~p"/api/v1/rss/watched") %></link>
     <lastBuildDate><%= last_build_date() %></lastBuildDate>
 
