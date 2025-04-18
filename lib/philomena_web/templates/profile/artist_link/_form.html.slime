@@ -7,10 +7,11 @@
     .field
       p
         label for="tag_name"
-          ' Artist/OC Link validation is intended for artists and OC owners. Validating your link will give you control over your content on the site, allowing you to create a 
-          a> href="/commissions" commissions
-          ' listing and request takedowns or DNPs (if you're the artist). Do not request a link if the source contains no artwork by or for you.
+        ' Artist/OC Link validation is intended for artists and OC owners. Validating your link will give you control over your content on the site, allowing you to create a 
+        a href="/commissions" commissions
+        ' listing and request takedowns or DNPs (if you're the artist). Do not request a link if the source contains no artwork by or for you.
       = text_input f, :tag_name, value: assigns[:tag_name], class: "input", autocomplete: "off", placeholder: "artist:your-name", data: [ac: "true", ac_min_length: "3", ac_source: "/autocomplete/tags?term="]
+
       = error_tag f, :tag
 
   .field

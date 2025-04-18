@@ -57,42 +57,44 @@ defmodule Philomena.Tags.Tag do
   @derive {Phoenix.Param, key: :slug}
 
   schema "tags" do
-    belongs_to :aliased_tag, Tag, source: :aliased_tag_id, on_replace: :nilify
-    has_many :aliases, Tag, foreign_key: :aliased_tag_id
+    belongs_to(:aliased_tag, Tag, source: :aliased_tag_id, on_replace: :nilify)
+    has_many(:aliases, Tag, foreign_key: :aliased_tag_id)
 
-    has_many :channels, Channel, foreign_key: :associated_artist_tag_id
+    has_many(:channels, Channel, foreign_key: :associated_artist_tag_id)
 
-    many_to_many :implied_tags, Tag,
+    many_to_many(:implied_tags, Tag,
       join_through: "tags_implied_tags",
       join_keys: [tag_id: :id, implied_tag_id: :id],
       on_replace: :delete
+    )
 
-    many_to_many :implied_by_tags, Tag,
+    many_to_many(:implied_by_tags, Tag,
       join_through: "tags_implied_tags",
       join_keys: [implied_tag_id: :id, tag_id: :id]
+    )
 
-    has_many :verified_links, ArtistLink, where: [aasm_state: "verified"]
-    has_many :public_links, ArtistLink, where: [public: true, aasm_state: "verified"]
-    has_many :hidden_links, ArtistLink, where: [public: false, aasm_state: "verified"]
-    has_many :dnp_entries, DnpEntry, where: [aasm_state: "listed"]
+    has_many(:verified_links, ArtistLink, where: [aasm_state: "verified"])
+    has_many(:public_links, ArtistLink, where: [public: true, aasm_state: "verified"])
+    has_many(:hidden_links, ArtistLink, where: [public: false, aasm_state: "verified"])
+    has_many(:dnp_entries, DnpEntry, where: [aasm_state: "listed"])
 
-    field :slug, :string
-    field :name, :string
-    field :category, :string
-    field :images_count, :integer, default: 0
-    field :description, :string, default: ""
-    field :short_description, :string
-    field :namespace, :string
-    field :name_in_namespace, :string
-    field :image, :string
-    field :image_format, :string
-    field :image_mime_type, :string
-    field :mod_notes, :string
+    field(:slug, :string)
+    field(:name, :string)
+    field(:category, :string)
+    field(:images_count, :integer, default: 0)
+    field(:description, :string, default: "")
+    field(:short_description, :string)
+    field(:namespace, :string)
+    field(:name_in_namespace, :string)
+    field(:image, :string)
+    field(:image_format, :string)
+    field(:image_mime_type, :string)
+    field(:mod_notes, :string)
 
-    field :uploaded_image, :string, virtual: true
-    field :removed_image, :string, virtual: true
+    field(:uploaded_image, :string, virtual: true)
+    field(:removed_image, :string, virtual: true)
 
-    field :implied_tag_list, :string, virtual: true
+    field(:implied_tag_list, :string, virtual: true)
 
     timestamps(inserted_at: :created_at, type: :utc_datetime)
   end
@@ -204,9 +206,10 @@ defmodule Philomena.Tags.Tag do
     )
     |> String.replace(~r/[\x{00b4}\x{2018}\x{2019}\x{201a}\x{201b}\x{2032}]/u, "'")
     |> String.replace(~r/[\x{201c}\x{201d}\x{201e}\x{201f}\x{2033}]/u, "\"")
-    |> String.trim()
     |> clean_tag_namespace()
     |> ununderscore()
+    |> String.trim()
+    |> String.replace(~r/ +/, " ")
   end
 
   defp clean_tag_namespace(name) do

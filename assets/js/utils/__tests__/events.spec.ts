@@ -1,4 +1,4 @@
-import { delegate, fire, mouseMoveThenOver, leftClick, on, PhilomenaAvailableEventsMap } from '../events';
+import { delegate, fire, leftClick, on, PhilomenaAvailableEventsMap, oncePersistedPageShown } from '../events';
 import { getRandomArrayItem } from '../../../test/randomness';
 import { fireEvent } from '@testing-library/dom';
 
@@ -80,52 +80,48 @@ describe('Event utils', () => {
     });
   });
 
-  describe('mouseMoveThenOver', () => {
-    it('should NOT fire on first mouseover', () => {
-      const mockButton = document.createElement('button');
+  describe('oncePersistedPageShown', () => {
+    it('should NOT fire on usual page show', () => {
       const mockHandler = vi.fn();
 
-      mouseMoveThenOver(mockButton, mockHandler);
+      oncePersistedPageShown(mockHandler);
 
-      fireEvent.mouseOver(mockButton);
+      fireEvent.pageShow(window, { persisted: false });
 
       expect(mockHandler).toHaveBeenCalledTimes(0);
     });
 
-    it('should fire on the first mousemove', () => {
-      const mockButton = document.createElement('button');
+    it('should fire on persisted pageshow', () => {
       const mockHandler = vi.fn();
 
-      mouseMoveThenOver(mockButton, mockHandler);
+      oncePersistedPageShown(mockHandler);
 
-      fireEvent.mouseMove(mockButton);
+      fireEvent.pageShow(window, { persisted: true });
 
       expect(mockHandler).toHaveBeenCalledTimes(1);
     });
 
-    it('should fire on subsequent mouseover', () => {
-      const mockButton = document.createElement('button');
+    it('should keep waiting until the first persistent page shown fired', () => {
       const mockHandler = vi.fn();
 
-      mouseMoveThenOver(mockButton, mockHandler);
+      oncePersistedPageShown(mockHandler);
 
-      fireEvent.mouseMove(mockButton);
-      fireEvent.mouseOver(mockButton);
+      fireEvent.pageShow(window, { persisted: false });
+      fireEvent.pageShow(window, { persisted: false });
+      fireEvent.pageShow(window, { persisted: true });
 
-      expect(mockHandler).toHaveBeenCalledTimes(2);
+      expect(mockHandler).toHaveBeenCalledTimes(1);
     });
 
-    it('should NOT fire on subsequent mousemove', () => {
-      const mockButton = document.createElement('button');
+    it('should NOT fire more than once', () => {
       const mockHandler = vi.fn();
 
-      mouseMoveThenOver(mockButton, mockHandler);
+      oncePersistedPageShown(mockHandler);
 
-      fireEvent.mouseMove(mockButton);
-      fireEvent.mouseOver(mockButton);
-      fireEvent.mouseMove(mockButton);
+      fireEvent.pageShow(window, { persisted: true });
+      fireEvent.pageShow(window, { persisted: true });
 
-      expect(mockHandler).toHaveBeenCalledTimes(2);
+      expect(mockHandler).toHaveBeenCalledTimes(1);
     });
   });
 

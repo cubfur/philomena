@@ -32,6 +32,7 @@ defmodule PhilomenaProxy.Scrapers do
     PhilomenaProxy.Scrapers.Baraag,
     PhilomenaProxy.Scrapers.Bluesky,
     PhilomenaProxy.Scrapers.Booru,
+    PhilomenaProxy.Scrapers.Civitai,
     PhilomenaProxy.Scrapers.Deviantart,
     PhilomenaProxy.Scrapers.E6,
     PhilomenaProxy.Scrapers.Furaffinity,

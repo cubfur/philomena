@@ -65,8 +65,7 @@ defmodule Philomena.MixProject do
       {:briefly, "~> 0.4"},
       {:req, "~> 0.5"},
       {:exq, "~> 0.17"},
-      {:ex_aws, "~> 2.0",
-       github: "liamwhite/ex_aws", ref: "a340859dd8ac4d63bd7a3948f0994e493e49bda4", override: true},
+      {:ex_aws, "~> 2.5"},
       {:ex_aws_s3, "~> 2.0"},
       {:sweet_xml, "~> 0.7"},
       {:inet_cidr, "~> 1.0"},
@@ -92,7 +91,7 @@ defmodule Philomena.MixProject do
       {:mix_audit, "~> 2.1", only: [:dev, :test], runtime: false},
 
       # Static analysis
-      {:dialyxir, "~> 1.2", only: :dev, runtime: false},
+      {:dialyxir, "~> 1.2", only: [:dev, :test], runtime: false},
 
       # Fixes for Elixir v1.15+
       {:canary, "~> 1.1",

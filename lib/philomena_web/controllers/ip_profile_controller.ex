@@ -15,7 +15,7 @@ defmodule PhilomenaWeb.IpProfileController do
 
     user_ips =
       UserIp
-      |> where(ip: ^ip)
+      |> where(fragment("? >>= ip", ^ip))
       |> order_by(desc: :updated_at)
       |> preload(:user)
       |> Repo.all()

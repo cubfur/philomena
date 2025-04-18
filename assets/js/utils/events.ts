@@ -43,14 +43,20 @@ export function leftClick<E extends MouseEvent, Target extends EventTarget>(func
   };
 }
 
-export function mouseMoveThenOver<El extends HTMLElement>(element: El, func: (e: MouseEvent) => void) {
-  element.addEventListener(
-    'mousemove',
-    (event: MouseEvent) => {
-      func(event);
-      element.addEventListener('mouseover', func);
+export function oncePersistedPageShown(func: (e: PageTransitionEvent) => void) {
+  const controller = new AbortController();
+
+  window.addEventListener(
+    'pageshow',
+    (e: PageTransitionEvent) => {
+      if (!e.persisted) {
+        return;
+      }
+
+      controller.abort();
+      func(e);
     },
-    { once: true },
+    { signal: controller.signal },
   );
 }
 
