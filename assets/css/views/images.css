@@ -56,6 +56,11 @@ a.interaction--comments:hover {
   font-size: 12px;
 }
 
+.tag-info__image2 {
+  text-align: center;
+  font-size: 12px;
+}
+
 /* Images rendered using the 'images/image_container' partial (image lists, comment list previews, gallery thumbs) */
 div.image-container {
   display: flex;
@@ -258,8 +263,8 @@ div.image-container video {
 
 #js-image-upload-previews img,
 #js-image-upload-previews video {
-  max-height: 200px;
-  max-width: 200px;
+  max-height: 250px;
+  max-width: 600px;
 }
 
 #js-image-upload-previews .scraper-preview--label {

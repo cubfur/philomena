@@ -67,7 +67,7 @@ defmodule Philomena.Users.UserNotifier do
     #{url}
 
     Sincerely,
-    The Derpibooru team.
+    The Cutepa.ws team.
 
     ==============================
     """)

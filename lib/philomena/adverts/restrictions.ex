@@ -7,7 +7,7 @@ defmodule Philomena.Adverts.Restrictions do
   @type restriction_list :: [restriction()]
   @type tag_list :: [String.t()]
 
-  @nsfw_tags MapSet.new(["questionable", "explicit"])
+  @nsfw_tags MapSet.new(["nude only", "explicit"])
   @sfw_tags MapSet.new(["safe", "suggestive"])
 
   @doc """

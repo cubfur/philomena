@@ -1,7 +1,7 @@
 {
   "system_filters": [
     {
-      "name": "Default",
+      "name": "SFW Furry",
       "description": "The site's default filter.",
       "hidden": ["explicit", "grotesque"],
       "spoilered": ["questionable"]

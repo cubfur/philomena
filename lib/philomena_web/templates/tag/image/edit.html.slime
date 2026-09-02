@@ -2,9 +2,9 @@
 
 .profile-top
   .profile-top__avatar
-    .tag-info__image.thumb-tiny-container
+    .tag-info__image.thumb-small-container
       = if @tag.image do
-        img src=tag_image(@tag) alt="spoiler image" width=50 height=50
+        img src=tag_image(@tag) alt="spoiler image" width=250 height=250
       - else
         | no spoiler image
 
@@ -13,7 +13,6 @@
       h1 Tag image
 
       p Add a new image or remove the existing one here.
-      p SVG is preferred.
 
       = form_for @changeset, ~p"/tags/#{@tag}/image", [method: "put", multipart: true], fn f ->
         = if @changeset.action do

@@ -26,7 +26,7 @@ defmodule Philomena.Images.TagValidator do
     rating_set = ratings(tag_set)
 
     changeset
-    |> validate_number_of_tags(tag_set, 3)
+    |> validate_number_of_tags(tag_set, 6)
     |> validate_bad_words(tag_set)
     |> validate_has_rating(rating_set)
     |> validate_safe(rating_set)
@@ -117,7 +117,7 @@ defmodule Philomena.Images.TagValidator do
   end
 
   defp safe_rating, do: MapSet.new(["safe"])
-  defp sexual_ratings, do: MapSet.new(["suggestive", "questionable", "explicit"])
+  defp sexual_ratings, do: MapSet.new(["suggestive", "nude only", "explicit"])
   defp horror_ratings, do: MapSet.new(["semi-grimdark", "grimdark"])
   defp gross_rating, do: MapSet.new(["grotesque"])
 end

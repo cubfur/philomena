@@ -23,6 +23,10 @@ interface ScraperResponse {
   source_url?: string;
   description?: string;
   author_name?: string;
+  tags?: string[];
+  sources?: string[];
+  authors?: string[];
+  directors?: string[];
 }
 
 interface ScraperError {
@@ -76,6 +80,7 @@ export function setupImageUpload() {
   const descrEl = $<HTMLTextAreaElement>('.js-image-descr-input', form);
   const tagsEl = $<HTMLTextAreaElement>('.js-image-tags-input', form);
   const sourceEl = $$<HTMLInputElement>('.js-source-url', form).find(input => input.value === '');
+  const sourceAdd = $<HTMLButtonElement>('.js-image-add-source');
   const fetchButton = $<HTMLButtonElement>('#js-scraper-preview');
 
   if (!fetchButton) return;
@@ -179,11 +184,30 @@ export function setupImageUpload() {
         if (tagsEl && data.author_name) {
           addTag(tagsEl, `artist:${data.author_name.toLowerCase()}`);
         }
+        // Add multiple authors if provided
+        if (tagsEl && data.authors) data.authors.forEach(item => addTag(tagsEl, `artist:${item.toLowerCase()}`));
+        // Add multiple directors if provided
+        if (tagsEl && data.directors) data.directors.forEach(item => addTag(tagsEl, `director:${item.toLowerCase()}`));
+        // Add Tags
+        if (tagsEl && data.tags) data.tags.forEach(item => addTag(tagsEl, `${item.toLowerCase()}`));
+        // Add multiple sources
+        if (sourceAdd && data.sources && data.sources.length > 0) {
+          data.sources.forEach(() => {
+            sourceAdd.dispatchEvent(new Event('click'));
+          });
+
+          let index;
+          const inps = document.querySelectorAll('.js-image-source input:placeholder-shown');
+
+          data.sources.forEach(item => {
+            index = data.sources.indexOf(item);
+            if (inps[index]) inps[index].value = item;
+          });
+        }
+
         // Clear selected file, if any
         fileField.value = '';
         showImages(data.images);
-
-        enableFetch();
       })
       .catch(showError);
   });
@@ -238,7 +262,7 @@ export function setupImageUpload() {
     $$('.tag-error').forEach(el => el.remove());
   };
 
-  const ratingsTags = ['safe', 'suggestive', 'questionable', 'explicit', 'semi-grimdark', 'grimdark', 'grotesque'];
+  const ratingsTags = ['safe', 'suggestive', 'nude only', 'explicit', 'semi-grimdark', 'grimdark', 'grotesque'];
 
   // populate tag error helper bars as necessary
   // return true if all checks pass
@@ -274,8 +298,8 @@ export function setupImageUpload() {
       errors.push('Tag input may not contain any other rating if safe');
     }
 
-    if (tagsArr.length < 3) {
-      errors.push('Tag input must contain at least 3 tags');
+    if (tagsArr.length < 5) {
+      errors.push('Tag input must contain at least 6 tags');
     }
 
     errors.forEach(msg => createTagError(msg));

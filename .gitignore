@@ -66,5 +66,7 @@ npm-debug.log
 # Vitest coverage
 /assets/coverage
 
+docker-compose.yml
+
 # OS junk
 .DS_Store

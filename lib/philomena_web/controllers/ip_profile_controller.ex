@@ -16,6 +16,9 @@ defmodule PhilomenaWeb.IpProfileController do
   end
 
   defp show_profile(conn, ip) do
+    geo = :locus.lookup(:city, ip)
+    asn = :locus.lookup(:asn, ip)
+
     user_ips =
       UserIp
       |> where(fragment("? >>= ip", ^ip))
@@ -33,7 +36,9 @@ defmodule PhilomenaWeb.IpProfileController do
       title: "#{ip}'s IP profile",
       ip: ip,
       user_ips: user_ips,
-      subnet_bans: subnet_bans
+      subnet_bans: subnet_bans,
+      geo: geo,
+      asn: asn
     )
   end
 

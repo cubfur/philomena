@@ -7,6 +7,7 @@ defmodule Philomena.Application do
 
   def start(_type, _args) do
     configure_logging()
+    configure_locus()
 
     # List all child processes to be supervised
     children = [
@@ -110,6 +111,15 @@ defmodule Philomena.Application do
         :sql_logs,
         {fn event, _ -> if(allow_log_event?.(event), do: :ignore, else: :stop) end, []}
       )
+    end
+  end
+
+  defp configure_locus() do
+    locus_key = Application.get_env(:locus, :license_key)
+
+    if locus_key && locus_key != "" do
+      :locus.start_loader(:city, {:maxmind, "GeoLite2-City"})
+      :locus.start_loader(:asn, {:maxmind, "GeoLite2-ASN"})
     end
   end
 end

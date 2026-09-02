@@ -99,7 +99,9 @@ defmodule Philomena.MixProject do
       {:dialyxir, "~> 1.4", only: [:dev, :test], runtime: false},
 
       # Authorization
-      {:canary, "~> 1.2"}
+      {:canary, "~> 1.2"},
+      {:html_sanitize_ex, "~> 1.4"},
+      {:locus, "~> 2.3"}
     ]
   end
 

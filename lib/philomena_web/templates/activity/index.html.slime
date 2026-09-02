@@ -6,15 +6,11 @@
           h4.remove-top-margin Featured Image
           .media--featured
             = render PhilomenaWeb.ImageView, "_image_box.html", image: @featured_image, size: :medium, conn: @conn
-      .block.block--fixed.block--fixed--sub.block--success.center.hide-mobile
-        ' Enjoy the site?
-        a href="/pages/donations"
-          ' Become a patron or donate!
       .block.block--fixed.block--fixed--sub.center.hide-mobile
         ' Issues? Want to chat?
         a href="/pages/contact" Contact us!
       .block.hide-mobile
-        a.block__header--single-item.center href="/search?q=first_seen_at.gt:3 days ago&amp;sf=wilson_score&amp;sd=desc"
+        a.block__header--single-item.center href="/search?q=first_seen_at.gt:10 days ago&amp;sf=wilson_score&amp;sd=desc"
           ' Trending Images
         .block__content.media-grid
           = for image <- @top_scoring do
@@ -36,7 +32,7 @@
           ' Recent Comments
         = for comment <- @comments do
           = render PhilomenaWeb.ActivityView, "_comment_strip.html", comment: comment, conn: @conn
-        a.block__header--single-item.center href="/search?q=first_seen_at.gt:3 days ago&amp;sf=comment_count&amp;sd=desc"
+        a.block__header--single-item.center href="/search?q=first_seen_at.gt:365 days ago&amp;sf=comment_count&amp;sd=desc"
           ' Most Commented-on Images
 
   .column-layout__main

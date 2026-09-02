@@ -14,12 +14,11 @@ defmodule Philomena.Tags.Tag do
     "artist",
     "art pack",
     "ask",
-    "blog",
     "colorist",
     "comic",
     "commissioner",
+    "director",
     "editor",
-    "fanfic",
     "oc",
     "parent",
     "parents",
@@ -27,7 +26,8 @@ defmodule Philomena.Tags.Tag do
     "series",
     "species",
     "spoiler",
-    "video"
+    "video",
+    "writer"
   ]
 
   @namespace_categories %{
@@ -35,22 +35,25 @@ defmodule Philomena.Tags.Tag do
     "art pack" => "content-fanmade",
     "colorist" => "origin",
     "comic" => "content-fanmade",
+    "director" => "origin",
     "editor" => "origin",
-    "fanfic" => "content-fanmade",
+    "ask" => "content-fanmade",
     "oc" => "oc",
     "photographer" => "origin",
     "series" => "content-fanmade",
     "spoiler" => "spoiler",
-    "video" => "content-fanmade"
+    "video" => "content-fanmade",
+    "writer" => "origin"
   }
 
   @underscore_safe_namespaces [
     "artist:",
     "colorist:",
     "commissioner:",
+    "director:",
     "editor:",
-    "oc:",
-    "photographer:"
+    "photographer:",
+    "writer:"
   ]
 
   # Must match the tags_name_length_check constraint in the database,
@@ -122,7 +125,10 @@ defmodule Philomena.Tags.Tag do
     tag
     |> cast(attrs, [:image, :image_format, :image_mime_type, :uploaded_image])
     |> validate_required([:image, :image_format, :image_mime_type])
-    |> validate_inclusion(:image_mime_type, ~W(image/gif image/jpeg image/png image/svg+xml))
+    |> validate_inclusion(
+      :image_mime_type,
+      ~W(image/gif image/jpeg image/png image/svg+xml)
+    )
   end
 
   def remove_image_changeset(tag) do

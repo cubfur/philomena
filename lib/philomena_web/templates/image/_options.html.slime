@@ -30,7 +30,7 @@
     #embed_options
       - source_link = if image_has_sources(@image), do: " - [url=#{image_first_source(@image)}]Original source[/url]", else: " (Original source unknown at time of posting)"
       - medium_url = thumb_url(@image, false, select_version(@image, :medium))
-      h5 Derpibooru
+      h5 Cutepa.ws
       p
         strong> Small thumbnail
         input.input#embed_small_thumbnail_tag type="text" value=">>#{@image.id}s" cols="10" readonly="readonly"
@@ -57,7 +57,7 @@
           | Copy
         br
         textarea.input.input--wide.input--separate-top#bbcode_embed_full_tag rows="2" cols="100" readonly="readonly"
-          = "[img]#{medium_url}[/img]\n[url=#{url(~p"/images/#{@image}")}]View on Derpibooru[/url]#{source_link}"
+          = "[img]#{medium_url}[/img]\n[url=#{url(~p"/images/#{@image}")}]View on Cutepa.ws[/url]#{source_link}"
       p
         strong> Thumbnailed BBcode
         a href="#" data-click-copy="#bbcode_embed_thumbnail_tag"
@@ -65,7 +65,7 @@
           | Copy
         br
         textarea.input.input--wide.input--separate-top#bbcode_embed_thumbnail_tag rows="2" cols="100" readonly="readonly"
-          = "[img]#{medium_url}[/img]\n[url=#{url(~p"/images/#{@image}")}]View on Derpibooru[/url]#{source_link}"
+          = "[img]#{medium_url}[/img]\n[url=#{url(~p"/images/#{@image}")}]View on Cutepa.ws[/url]#{source_link}"
 
   = if display_mod_tools? do
     .block__tab.hidden data-tab="replace"
@@ -76,11 +76,13 @@
           = file_input f, :image, class: "input js-scraper"
 
         .field.field--inline
-          = url_input f, :scraper_url, class: "input input--wide js-scraper", placeholder: "Link a deviantART page, a Tumblr post, or the image directly"
+          = url_input f, :scraper_url, class: "input input--wide js-scraper", placeholder: "Or link a supported service's post or an image directly"
           button.button.button--separate-left#js-scraper-preview(type="button" title="Fetch the image at the specified URL" data-disable-with="Fetch" disabled)
             ' Fetch
 
         .field-error-js.hidden.js-scraper
+
+        p Supports Baraag, Bluesky, Derpibooru, DeviantArt, E621, E6AI, Furbooru, Inkbunny, Pillowfort, Pixiv, Tumblr, and Twitter
 
         = submit "Save changes", class: "button", data: [disable_with: raw("Replacing&hellip;")]
 

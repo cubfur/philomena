@@ -36,7 +36,7 @@
   "Help & Information": [
     {
       "title": "Changelog",
-      "url": "https://github.com/derpibooru/philomena/commits/master",
+      "url": "https://github.com/cubfur/philomena/commits/master",
       "bold": true,
       "target": "_blank"
     },
@@ -56,10 +56,6 @@
     {
       "title": "Advertising",
       "url": "/pages/advertising"
-    },
-    {
-      "title": "Onion Service",
-      "url": "/pages/onion"
     }
   ],
   "Community": [
@@ -86,8 +82,13 @@
       "url": "/pages/about"
     },
     {
-      "title": "Twitter",
-      "url": "https://twitter.com/Derpibooru",
+      "title": "Telegram Group",
+      "url": "https://t.me/+NDKRohflXWs3YzIx",
+      "target": "_blank"
+    },
+    {
+      "title": "InkBunny",
+      "url": "https://inkbunny.net/cubfurgay",
       "target": "_blank"
     }
   ]

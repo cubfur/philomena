@@ -410,6 +410,9 @@ defmodule PhilomenaWeb.ImageView do
       u when u in ["t.me"] ->
         "fab fa-telegram"
 
+      u when u in ["derpibooru.org", "derpicdn.net"] ->
+        "fa-solid fa-horse-head"
+
       u
       when u in [
              "reddit.com",
@@ -476,6 +479,14 @@ defmodule PhilomenaWeb.ImageView do
       u when u in ["etsy.com", "www.etsy.com"] ->
         "fab fa-etsy"
 
+      u
+      when u in [
+             "inkbunny.net",
+             "ib.metapix.net",
+             "tx.ib.metapix.net"
+           ] ->
+        "fa-solid fa-carrot"
+
       link ->
         cond do
           Enum.member?(site_domains, link) ->
@@ -486,10 +497,6 @@ defmodule PhilomenaWeb.ImageView do
 
           String.ends_with?(link, ".deviantart.com") or String.ends_with?(link, ".deviantart.net") ->
             "fab fa-deviantart"
-
-          String.ends_with?(link, ".furaffinity.net") or String.ends_with?(link, ".sofurry.com") or
-              String.ends_with?(link, ".facdn.net") ->
-            "fa fa-paw"
 
           String.ends_with?(link, ".userapi.com") or String.ends_with?(link, ".vk.me") ->
             "fab fa-vk"
