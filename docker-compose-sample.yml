@@ -1,0 +1,135 @@
+# Ensure a consistent project name regardless of how the repo directory is named
+name: philomena
+
+volumes:
+  postgres_data: {}
+  opensearch_data: {}
+  caddy_data: {}
+  s3_data: {}
+  shell_history: {}
+  cargo_registry: {}
+  cargo_git: {}
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: ./docker/app/Dockerfile
+    environment:
+      # Use this env variable to control the logs levels from different modules.
+      # The syntax is `{module.function}=level,...`. The filter evaluation stops
+      # on the first `{module.function}` that has a prefix match against the log
+      # event's module and function. The last entry in the list of filters should
+      # be a bare `level` which will be used as a catch-all for all other log
+      # events that do not match any of the previous filters.
+      - PHILOMENA_LOG=${PHILOMENA_LOG-Ecto=debug,Exq=none,PhilomenaMedia.Objects=info,debug}
+      - MIX_ENV=dev
+      - PGPASSWORD=postgres
+      - ANONYMOUS_NAME_SALT=2fmJRo0OgMFe65kyAJBxPT0QtkVes/jnKDdtP21fexsRqiw8TlSY7yO+uFyMZycp
+      - HCAPTCHA_SECRET_KEY=0x0000000000000000000000000000000000000000
+      - HCAPTCHA_SITE_KEY=10000000-ffff-ffff-ffff-000000000001
+      - PASSWORD_PEPPER=dn2e0EpZrvBLoxUM3gfQveBhjf0bG/6/bYhrOyq3L3hV9hdo/bimJ+irbDWsuXLP
+      - TUMBLR_API_KEY=fuiKNFp9vQFvjLNvx4sUwti4Yb5yGutBN4Xh10LXZhhRKjWlV4
+      - OTP_SECRET_KEY=Wn7O/8DD+qxL0X4X7bvT90wOkVGcA90bIHww4twR03Ci//zq7PnMw8ypqyyT/b/C
+      - ADVERT_FILE_ROOT=adverts
+      - AVATAR_FILE_ROOT=avatars
+      - BADGE_FILE_ROOT=badges
+      - IMAGE_FILE_ROOT=images
+      - TAG_FILE_ROOT=tags
+      - AVATAR_URL_ROOT=/avatars
+      - ADVERT_URL_ROOT=/spns
+      - IMAGE_URL_ROOT=/img
+      - BADGE_URL_ROOT=/badge-img
+      - TAG_URL_ROOT=/tag-img
+      - MEDIAPROC_ADDR=mediaproc:1500
+      - OPENSEARCH_URL=http://opensearch:9200
+      - REDIS_HOST=valkey
+      - DATABASE_URL=ecto://postgres:postgres@postgres/philomena_dev
+      - CDN_HOST=localhost
+      - MAILER_ADDRESS=noreply@philomena.local
+      - START_ENDPOINT=true
+      - SITE_DOMAINS=localhost
+      - S3_SCHEME=http
+      - S3_HOST=files
+      - S3_PORT=80
+      - S3_BUCKET=philomena
+      - AWS_ACCESS_KEY_ID=local-identity
+      - AWS_SECRET_ACCESS_KEY=local-credential
+      - INKBUNNY_SID=
+      - E621_USER=
+      - E621_APIKEY=
+      - E6AI_USER=
+      - E6AI_APIKEY=
+      - LOCUS_KEY=
+    working_dir: /srv/philomena
+    tty: true
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - .:/srv/philomena
+      - shell_history:/shell-history
+      - cargo_registry:/root/.cargo/registry
+      - cargo_git:/root/.cargo/git
+
+    ports:
+      - '5173:5173'
+
+  postgres:
+    image: postgres:18.4-alpine
+    environment:
+      - POSTGRES_PASSWORD=postgres
+    volumes:
+      - postgres_data:/var/lib/postgresql
+
+  opensearch:
+    image: opensearchproject/opensearch:3.7.0
+    volumes:
+      - opensearch_data:/usr/share/opensearch/data
+      - ${HOST_WORKSPACE:-.}/docker/opensearch/opensearch.yml:/usr/share/opensearch/config/opensearch.yml
+    attach: false
+    ulimits:
+      nofile:
+        soft: 65536
+        hard: 65536
+
+  valkey:
+    image: valkey/valkey:9.1.0-alpine
+    attach: false
+
+  files:
+    image: andrewgaul/s3proxy:3.2.0
+    environment:
+      - JCLOUDS_FILESYSTEM_BASEDIR=/data
+      - S3PROXY_IGNORE_UNKNOWN_HEADERS=true
+    volumes:
+      - s3_data:/data
+    attach: false
+
+  mediaproc:
+    build:
+      context: .
+      dockerfile: ./docker/mediaproc/Dockerfile
+    attach: false
+    deploy:
+      resources:
+        limits:
+          cpus: '4'
+          memory: 8gb
+          pids: 8192
+
+  web:
+    build:
+      context: .
+      dockerfile: ./docker/web/Dockerfile
+    volumes:
+      - ${HOST_WORKSPACE:-.}:/srv/philomena
+      - ${HOST_WORKSPACE:-.}/docker/web/config:/etc/caddy
+      - caddy_data:/data
+    environment:
+      - APP_DIR=/srv/philomena
+      - S3_ENDPOINT=http://files:80
+      - S3_BUCKET=philomena
+      - AWS_ACCESS_KEY_ID=local-identity
+      - AWS_SECRET_ACCESS_KEY=local-credential
+    attach: false
+    ports:
+      - '8080:80'

@@ -196,12 +196,11 @@ export function setupImageUpload() {
             sourceAdd.dispatchEvent(new Event('click'));
           });
 
-          let index;
           const inps = document.querySelectorAll('.js-image-source input:placeholder-shown');
 
-          data.sources.forEach(item => {
-            index = data.sources.indexOf(item);
-            if (inps[index]) inps[index].value = item;
+          data.sources?.forEach((item, index) => {
+            const inp = inps[index] as HTMLInputElement | undefined
+            if (inp) inp.value = item;
           });
         }
 
