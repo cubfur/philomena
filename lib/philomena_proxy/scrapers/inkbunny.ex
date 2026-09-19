@@ -1,7 +1,9 @@
 defmodule PhilomenaProxy.Scrapers.Inkbunny do
+  alias PhilomenaProxy.Http
   alias PhilomenaProxy.Scrapers.Inkbunny.Session
 
   @url_regex ~r|\Ahttps?://inkbunny\.net/s/([0-9]+)|
+  @preview_types ~w(image/jpeg image/png image/gif image/webp)
 
   @spec can_handle?(URI.t(), String.t()) :: true | false
   def can_handle?(_uri, url) do
@@ -68,23 +70,48 @@ defmodule PhilomenaProxy.Scrapers.Inkbunny do
     if rating do
       description = "##\s#{submission["title"]}\n#{submission["description"]}"
 
-      images =
-        for x <- submission["files"] do
+      case preview_images(submission["files"]) do
+        {:ok, images} ->
           %{
-            url: "#{x["file_url_full"]}",
-            camo_url: PhilomenaProxy.Camo.image_url(x["file_url_screen"])
+            source_url: url,
+            author_name: submission["username"],
+            description: description,
+            tags: [rating],
+            images: images
           }
-        end
 
-      %{
-        source_url: url,
-        author_name: submission["username"],
-        description: description,
-        tags: [rating],
-        images: images
-      }
+        :error ->
+          %{errors: ["The Inkbunny preview could not be downloaded. Please try again."]}
+      end
     else
       %{errors: ["Requested image does not have an acceptable rating for submission."]}
+    end
+  end
+
+  defp preview_images(files) do
+    # Camo cannot set Inkbunny's required Referer. Embed server-fetched previews,
+    # as the Pixiv scraper does, while retaining the original URL for upload.
+    files
+    |> Enum.reduce_while({:ok, []}, fn file, {:ok, images} ->
+      with {:ok, %{status: 200, body: body, headers: headers}} <-
+             Http.get(file["file_url_screen"]),
+           true <- is_binary(body) and byte_size(body) > 0,
+           [content_type | _] <- headers["content-type"],
+           type = content_type |> String.split(";", parts: 2) |> hd() |> String.trim(),
+           true <- type in @preview_types do
+        image = %{
+          url: file["file_url_full"],
+          camo_url: "data:#{type};base64,#{Base.encode64(body)}"
+        }
+
+        {:cont, {:ok, [image | images]}}
+      else
+        _ -> {:halt, :error}
+      end
+    end)
+    |> case do
+      {:ok, images} -> {:ok, Enum.reverse(images)}
+      :error -> :error
     end
   end
 end

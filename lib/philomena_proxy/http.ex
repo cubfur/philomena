@@ -84,6 +84,8 @@ defmodule PhilomenaProxy.Http do
 
   @spec request(atom(), String.t(), iodata() | nil, header_list(), keyword()) :: result()
   defp request(method, url, body, headers, options \\ []) do
+    headers = download_headers(method, url, headers)
+
     [
       method: method,
       url: url,
@@ -100,6 +102,32 @@ defmodule PhilomenaProxy.Http do
     |> Req.new()
     |> Req.Request.put_private(@max_body_key, 0)
     |> Req.request()
+  end
+
+  defp download_headers(method, url, headers) when method in [:get, :head] do
+    case URI.parse(url) do
+      %URI{scheme: "https", host: host} when is_binary(host) ->
+        has_referer? =
+          Enum.any?(headers, fn {name, _value} ->
+            String.downcase(to_string(name)) == "referer"
+          end)
+
+        # Inkbunny's public image CDN rejects requests without its site Referer.
+        if inkbunny_host?(String.downcase(host)) and not has_referer? do
+          [{"referer", "https://inkbunny.net"} | headers]
+        else
+          headers
+        end
+
+      _ ->
+        headers
+    end
+  end
+
+  defp download_headers(_method, _url, headers), do: headers
+
+  defp inkbunny_host?(host) do
+    host in ["inkbunny.net", "ib.metapix.net"] or String.ends_with?(host, ".ib.metapix.net")
   end
 
   defp connect_options do
