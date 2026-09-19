@@ -77,13 +77,13 @@ defmodule PhilomenaProxy.Http do
       {:error, %Req.TransportError{reason: :nxdomain}}
 
   """
-  @spec post(url(), body(), header_list()) :: result()
-  def post(url, body, headers \\ []) do
-    request(:post, url, body, headers)
+  @spec post(url(), body(), header_list(), keyword()) :: result()
+  def post(url, body, headers \\ [], options \\ []) do
+    request(:post, url, body, headers, options)
   end
 
-  @spec request(atom(), String.t(), iodata() | nil, header_list()) :: result()
-  defp request(method, url, body, headers) do
+  @spec request(atom(), String.t(), iodata() | nil, header_list(), keyword()) :: result()
+  defp request(method, url, body, headers, options \\ []) do
     [
       method: method,
       url: url,
@@ -96,6 +96,7 @@ defmodule PhilomenaProxy.Http do
       decode_body: false
     ]
     |> Keyword.merge(Application.get_env(:philomena, :req_options, []))
+    |> Keyword.merge(options)
     |> Req.new()
     |> Req.Request.put_private(@max_body_key, 0)
     |> Req.request()

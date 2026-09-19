@@ -68,5 +68,10 @@ npm-debug.log
 
 docker-compose.yml
 
+# Local service credentials
+.env
+.env.*
+!.env.example
+
 # OS junk
 .DS_Store

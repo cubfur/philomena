@@ -68,6 +68,23 @@ If you are using a platform which uses cgroups v2 by default (Fedora 31+), use `
 
 ## Deployment
 
+### Inkbunny sessions
+
+To renew expired Inkbunny API sessions automatically, set `INKBUNNY_USERNAME` and
+`INKBUNNY_PASSWORD` in the server's private environment file. Enable API access
+in that account's Inkbunny settings. Keep credentials out of source control.
+Docker Compose users should supply these values through their local
+`docker-compose.yml` or its environment configuration.
+
+`INKBUNNY_SID` is optional: an existing valid SID is reused, and SID-only
+configurations continue to work until that session expires. With credentials
+configured, the scraper logs in when it has no SID or Inkbunny reports an
+expired/invalid SID, caches the new SID in memory, and retries the fetch once.
+It does not need a scheduled keepalive. On application restart, the configured
+SID is tried again, or a new login is performed if none was supplied.
+
+### Deploying with Git
+
 You need a key installed on the server you target, and the git remote installed in your ssh configuration.
 
     git remote add production philomena@<serverip>:philomena/

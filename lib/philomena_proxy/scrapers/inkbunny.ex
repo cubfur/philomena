@@ -1,4 +1,6 @@
 defmodule PhilomenaProxy.Scrapers.Inkbunny do
+  alias PhilomenaProxy.Scrapers.Inkbunny.Session
+
   @url_regex ~r|\Ahttps?://inkbunny\.net/s/([0-9]+)|
 
   @spec can_handle?(URI.t(), String.t()) :: true | false
@@ -9,14 +11,36 @@ defmodule PhilomenaProxy.Scrapers.Inkbunny do
   def scrape(_uri, url) do
     [_, submission_id] = Regex.run(@url_regex, url, capture: :all)
 
-    api_url =
-      "https://inkbunny.net/api_submissions.php?show_description=yes&sid=#{inkbunny_sid()}&submission_ids=#{submission_id}"
+    case Session.submission(submission_id) do
+      {:ok, submission} ->
+        if valid_submission?(submission) do
+          scrape_submission(submission, url)
+        else
+          %{errors: ["Inkbunny returned incomplete submission details. Please try again later."]}
+        end
 
-    {:ok, %{status: 200, body: body}} = PhilomenaProxy.Http.get(api_url)
+      {:error, message} ->
+        %{errors: [message]}
+    end
+  end
 
-    json = JSON.decode!(body)
-    [submission] = json["submissions"]
+  defp valid_submission?(%{"ratings" => ratings, "files" => files} = submission)
+       when is_list(ratings) and is_list(files) do
+    Enum.all?(~w(rating_name title description username), &is_binary(submission[&1])) and
+      Enum.all?(ratings, &match?(%{"name" => name} when is_binary(name), &1)) and
+      Enum.all?(files, fn
+        %{"file_url_full" => full, "file_url_screen" => screen}
+        when is_binary(full) and is_binary(screen) ->
+          true
 
+        _ ->
+          false
+      end)
+  end
+
+  defp valid_submission?(_), do: false
+
+  defp scrape_submission(submission, url) do
     rating = if submission["rating_name"] == "General", do: "safe"
     r = submission["ratings"]
 
@@ -36,6 +60,9 @@ defmodule PhilomenaProxy.Scrapers.Inkbunny do
 
         Enum.find(r, fn x -> x["name"] == "Nudity" end) ->
           "nude only"
+
+        true ->
+          nil
       end
 
     if rating do
@@ -59,9 +86,5 @@ defmodule PhilomenaProxy.Scrapers.Inkbunny do
     else
       %{errors: ["Requested image does not have an acceptable rating for submission."]}
     end
-  end
-
-  defp inkbunny_sid do
-    Application.get_env(:philomena, :inkbunny_sid)
   end
 end

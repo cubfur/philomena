@@ -56,6 +56,8 @@ services:
       - AWS_ACCESS_KEY_ID=local-identity
       - AWS_SECRET_ACCESS_KEY=local-credential
       - INKBUNNY_SID=
+      - INKBUNNY_USERNAME=
+      - INKBUNNY_PASSWORD=
       - E621_USER=
       - E621_APIKEY=
       - E6AI_USER=
